@@ -21,6 +21,9 @@ spec:
     labels:
       description: Labels to add to Renovate PRs. Multiple labels should be comma-separated.
       default: "renovate"
+    reviewers_from_codeowners:
+      description: If enabled Renovate tries to determine PR reviewers by matching rules defined in a CODEOWNERS file against the changes in the PR.
+      default: "false"
 ---
 
 include:
@@ -43,6 +46,7 @@ renovate:
     RENOVATE_GIT_PRIVATE_KEY: "$SSH_PRIVATE_KEY"
     RENOVATE_CONFIG_FILE: $[[ inputs.config_file ]]
     RENOVATE_LABELS: $[[ inputs.labels ]]
+    RENOVATE_REVIEWERS_FROM_CODE_OWNERS: $[[ inputs.reviewers_from_codeowners ]]
   rules:
     - if: '$CI_PIPELINE_SOURCE == "schedule" && $CI_COMMIT_REF_PROTECTED == "true"'
     - if: '$CI_PIPELINE_SOURCE == "web" && $CI_COMMIT_REF_PROTECTED == "true"'
